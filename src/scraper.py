@@ -10,7 +10,8 @@ import xmltodict
     cache=True,
     run_async=True,
     create_error_logs=False,
-    output=None
+    output=None,
+    headless=True,
 )
 def scrape_category_links(driver: Driver, url: str) -> list[str]:
     print(f"[SCRAPE_CATEGORY_LINKS] Start: {url}")
@@ -39,6 +40,7 @@ def scrape_category_links(driver: Driver, url: str) -> list[str]:
     create_error_logs=False,
     cache=True,
     output=None,
+    headless=True
 )
 def scrape_vendor_info(driver: Driver, url: str) -> dict[str, str]:
     print(f"[SCRAPE_VENDOR_INFO] Start: {url}")
