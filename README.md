@@ -1,68 +1,78 @@
 # Laredoute Scraper
 
-Ce projet est un outil de web scraping conçu pour extraire des informations sur les fournisseurs du site e-commerce La Redoute. Il utilise **Botasaurus**, un puissant framework de scraping, ainsi que **Pixi** pour la gestion des dépendances, afin d'automatiser la navigation sur le site, la gestion des pop-ups et le scraping de données spécifiques sur les fournisseurs.
+This project is a web scraping tool designed to extract vendor information from the La Redoute e-commerce website. It uses **Botasaurus**, a powerful scraping framework, along with **Pixi** for dependency management, to automate the process of navigating the site, handling pop-ups, and scraping specific vendor data.
 
-## Fonctionnalités
+## Features
 
-* **Extraction des liens de catégories** : Récupère les liens des catégories de produits à partir d'un sitemap.
-* **Extraction des informations des fournisseurs** : Navigue vers les pages de produits, identifie le fournisseur et extrait ses informations détaillées.
-* **Sauvegarde en CSV** : Les liens de catégories et les données des fournisseurs sont sauvegardés dans des fichiers CSV pour une utilisation ultérieure.
-* **Configuration automatisée** : Un `Makefile` est inclus pour simplifier l'installation et garantir que toutes les dépendances sont installées correctement.
-
----
-
-## Prérequis
-
-Voici les outils et logiciels nécessaires pour faire fonctionner le projet :
-
-* **`make`** : L'outil de construction `make` est indispensable pour exécuter les commandes d'installation et de lancement définies dans le `Makefile`.
-* **Python 3.x** : Le projet est développé en Python. Assurez-vous d'avoir une version 3.x (par exemple, 3.9 ou plus récente) installée sur votre système.
-* **`curl` et `apt`** : Le script d'installation est conçu pour les systèmes d'exploitation basés sur Debian/Ubuntu. Assurez-vous que les commandes `curl` et `apt` sont disponibles.
+* **Extracts Category Links**: Fetches product category links from a sitemap.
+* **Scrapes Vendor Information**: Navigates to product pages, identifies the vendor, and extracts detailed information.
+* **CSV Output**: Saves scraped category links and vendor data to CSV files for easy use.
+* **Automated Setup**: A `Makefile` is included to simplify the setup, ensuring all dependencies are installed correctly.
 
 ---
 
-## Installation et configuration
+## Prerequisites
 
-Le projet utilise `pixi` pour gérer les dépendances. Le `Makefile` fourni automatise l'ensemble du processus de configuration.
+Here are the tools and software required to run the project:
 
-1.  **Ouvrez votre terminal** et naviguez jusqu'au répertoire racine du projet.
-2.  **Exécutez la commande `setup`** : Cette commande installera `curl` (si ce n'est pas déjà présent), `pixi`, et toutes les dépendances du projet.
+* **`make`**: The `make` build tool is essential for running the installation and launch commands defined in the `Makefile`.
+* **Python 3.x**: The project is developed in Python. Ensure you have a version 3.x (e.g., 3.9 or newer) installed on your system.
+* **`curl` and `apt`**: The installation script is designed for Debian/Ubuntu-based operating systems. Make sure the `curl` and `apt` commands are available.
+
+---
+
+## Installation and Configuration
+
+The project uses `pixi` for dependency management. The provided `Makefile` automates the entire configuration process.
+
+1.  **Open your terminal** and navigate to the project's root directory.
+2.  **Execute the `setup` command**: This command will install `curl` (if not already present), `pixi`, and all project dependencies.
 
     ```bash
     make setup
     ```
 
-> **Note :** Si vous rencontrez une erreur "dpkg was interrupted" pendant l'installation, le `Makefile` tentera automatiquement de la corriger et de poursuivre l'installation.
+> **Note**: If you encounter a "dpkg was interrupted" error during installation, the `Makefile` will automatically attempt to fix it and continue.
 
 ---
 
-## Utilisation
+## Usage
 
-Une fois la configuration terminée, vous pouvez lancer le script de scraping en utilisant le `Makefile`.
+Once the setup is complete, you can launch the script using the `Makefile`.
 
-1.  **Lancez le scraper** : Cette commande exécutera le script Python principal qui gère la logique de scraping.
+1.  **Launch the scraper**: This command will execute the Python script that handles the scraping logic.
 
     ```bash
     make run
     ```
 
-Le script affichera la progression dans la console au fur et à mesure du scraping. Les résultats seront sauvegardés dans des fichiers CSV dans le répertoire de votre projet.
+The script will display its progress in the console. The results will be saved in CSV files in your project directory.
+
+2.  **Generate the final "deliverable" file**: Once the intermediate CSV files are ready, you can merge them and create a final output file.
+
+    ```bash
+    make livrable
+    ```
 
 ---
 
-## Pour les utilisateurs de Windows
+## For Windows Users
 
-Le `Makefile` est optimisé pour les systèmes basés sur Linux et macOS. Les utilisateurs de **Windows** doivent d'abord installer `make` via un environnement comme **Git Bash** ou **WSL (Windows Subsystem for Linux)**.
+The `Makefile` is optimized for Linux and macOS. **Windows** users must first install `make` via an environment like **Git Bash** or **WSL (Windows Subsystem for Linux)**.
 
-Une fois `pixi` installé, vous pouvez également lancer les commandes directement depuis votre terminal, sans utiliser `make`. Cela est particulièrement utile si vous rencontrez des problèmes avec `make` sur Windows.
+Once `pixi` is installed, you can also run the commands directly from your terminal, without using `make`. This is particularly useful if you encounter issues with `make` on Windows.
 
-* **Pour installer les dépendances** :
+* **To install dependencies**:
     ```bash
     pixi install
     ```
-* **Pour lancer le scraper** :
+* **To launch the scraper**:
     ```bash
-    pixi run python src/main.py
+    pixi run run
+    ```
+* **To generate the final "deliverable" file**:
+    ```bash
+    pixi run livrable
     ```
 
-Ces commandes vous permettent de contourner le `Makefile` et d'interagir directement avec **Pixi** pour gérer le projet.
+These commands allow you to bypass the `Makefile` and interact directly with **Pixi** to manage the project.
