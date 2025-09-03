@@ -68,7 +68,7 @@ Once `pixi` is installed, you can also run the commands directly from your termi
     ```
 * **To launch the scraper**:
     ```bash
-    pixi run run
+    pixi run start
     ```
 * **To generate the final "deliverable" file**:
     ```bash
