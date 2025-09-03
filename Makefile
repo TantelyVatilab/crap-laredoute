@@ -17,8 +17,11 @@ install-deps:
 	~/.pixi/bin/pixi update
 
 run:
-	~/.pixi/bin/pixi run python src/main.py
+	~/.pixi/bin/pixi run start
+
+livrable:
+	~/.pixi/bin/pixi run livrable
 
 setup: install-pixi install-deps
 
-.PHONY: fix-dpkg install-curl install-pixi install-deps run setup
+.PHONY: fix-dpkg install-curl install-pixi install-deps run livrable setup

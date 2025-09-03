@@ -1,10 +1,13 @@
 import os
 import pandas as pd
+from config import settings
 
-CLEAN_URL = "clean_url.csv"
-FINAL_DATA = "final_data.csv"
+CATEGORY_LINKS_FILE = settings.CATEGORY_LINKS_FILE
+VENDOR_DATA_OUTPUT_FILE = settings.VENDOR_DATA_OUTPUT_FILE
+LIVRABLE_FILE = settings.LIVRABLE_FILE
+FILES_TO_MERGE = settings.FILES_TO_MERGE
 
-def save_category_links_to_csv(category_links: list[str], *,  csv_file: str = CLEAN_URL):
+def save_category_links_to_csv(category_links: list[str], *,  csv_file: str = CATEGORY_LINKS_FILE):
     df_new = pd.DataFrame({
         "url": category_links
     })
@@ -21,7 +24,7 @@ def save_category_links_to_csv(category_links: list[str], *,  csv_file: str = CL
     print(f"[DATA_MANAGER] Données sauvegardées dans '{csv_file}' avec {len(df_merged)} lignes.")
 
 
-def load_csv_column_as_list(column_name: str, *,  csv_file: str = CLEAN_URL) -> list[str]:
+def load_csv_column_as_list(column_name: str, *,  csv_file: str = CATEGORY_LINKS_FILE) -> list[str]:
     if not os.path.exists(csv_file):
         print(f"[DATA_MANAGER] Fichier '{csv_file}' introuvable.")
         return []
@@ -32,7 +35,7 @@ def load_csv_column_as_list(column_name: str, *,  csv_file: str = CLEAN_URL) -> 
     return df[column_name].dropna().tolist()
 
 
-def save_vendor_data_to_csv(vendor_data: dict, *, csv_file: str = FINAL_DATA):
+def save_vendor_data_to_csv(vendor_data: dict, *, csv_file: str = VENDOR_DATA_OUTPUT_FILE):
     df_new = pd.DataFrame([vendor_data])
     if os.path.exists(csv_file):
         df_existing = pd.read_csv(csv_file)
@@ -47,7 +50,7 @@ def save_vendor_data_to_csv(vendor_data: dict, *, csv_file: str = FINAL_DATA):
     print(f"[DATA_MANAGER] Données du vendeur sauvegardées dans '{csv_file}' avec {len(df_merged)} lignes.")
 
 
-def split_csv_into_three_files(*, csv_file: str = CLEAN_URL) -> list[str]:
+def split_csv_into_three_files(*, csv_file: str = CATEGORY_LINKS_FILE) -> list[str]:
     output_files = [f"{os.path.splitext(csv_file)[0]}_part{i+1}.csv" for i in range(3)]
 
     if all(os.path.exists(f) for f in output_files):
@@ -78,10 +81,7 @@ def split_csv_into_three_files(*, csv_file: str = CLEAN_URL) -> list[str]:
     return output_files
 
 
-def merge_three_csv_files(file_list: list[str], output_file: str = "livrable.csv"):
-    import pandas as pd
-    import os
-
+def merge_three_csv_files(file_list: list[str] = FILES_TO_MERGE, output_file: str = LIVRABLE_FILE):
     for f in file_list:
         if not os.path.exists(f):
             print(f"[DATA_MANAGER] Fichier '{f}' introuvable, fusion annulée.")
